@@ -1,0 +1,51 @@
+<!-- EventCard.razor -->
+@using System.ComponentModel.DataAnnotations
+
+<div class="event-card">
+    <EditForm Model="@this" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="eventName">Event Name:</label>
+            <InputText id="eventName" @bind-Value="EventName" />
+            <ValidationMessage For="@(() => EventName)" />
+        </div>
+
+        <div class="form-group">
+            <label for="eventDate">Date:</label>
+            <InputDate id="eventDate" @bind-Value="EventDate" />
+            <ValidationMessage For="@(() => EventDate)" />
+        </div>
+
+        <div class="form-group">
+            <label for="eventDescription">Description:</label>
+            <InputTextArea id="eventDescription" @bind-Value="Description" />
+        </div>
+
+        <div class="form-group">
+            <label for="eventLocation">Location:</label>
+            <InputText id="eventLocation" @bind-Value="Location" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Event</button>
+    </EditForm>
+</div>
+
+@code {
+    [Required(ErrorMessage = "Event name is required")]
+    [StringLength(50, ErrorMessage = "Name is too long.")]
+    public string EventName { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "Event date is required")]
+    public DateTime EventDate { get; set; } = DateTime.Now;
+
+    public string Description { get; set; } = string.Empty;
+    public string Location { get; set; } = string.Empty;
+
+    private void HandleValidSubmit()
+    {
+        // Handle form submission
+        Console.WriteLine("Event saved successfully");
+    }
+}

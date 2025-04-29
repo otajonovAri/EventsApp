@@ -1,0 +1,39 @@
+<!-- RegistrationForm.razor -->
+<EditForm Model="@registrationModel" OnValidSubmit="@HandleRegistration">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Email:</label>
+        <InputText @bind-Value="registrationModel.Email" />
+        <ValidationMessage For="@(() => registrationModel.Email)" />
+    </div>
+
+    <div class="form-group">
+        <label>Password:</label>
+        <InputText type="password" @bind-Value="registrationModel.Password" />
+        <ValidationMessage For="@(() => registrationModel.Password)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</EditForm>
+
+@code {
+    private RegistrationModel registrationModel = new();
+
+    private void HandleRegistration()
+    {
+        // Registration logic
+    }
+
+    public class RegistrationModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        public string Password { get; set; }
+    }
+}

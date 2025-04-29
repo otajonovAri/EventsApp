@@ -1,0 +1,43 @@
+<!-- AttendanceTracker.razor -->
+@if (attendees.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Check-in Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var attendee in attendees)
+            {
+                <tr>
+                    <td>@attendee.Name</td>
+                    <td>@attendee.Email</td>
+                    <td>@attendee.CheckInTime.ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No attendees yet.</p>
+}
+
+@code {
+    private List<Attendee> attendees = new();
+
+    protected override void OnInitialized()
+    {
+        // Load attendees from API or service
+    }
+
+    public class Attendee
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public DateTime CheckInTime { get; set; }
+    }
+}
