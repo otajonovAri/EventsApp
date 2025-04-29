@@ -1,0 +1,11 @@
+@using EventEase.Models
+@code {
+    [Parameter]
+    public Event EventItem { get; set; }
+}
+
+<div class="card m-3 p-3 shadow">
+    <h3>@EventItem.Name</h3>
+    <p><strong>Date:</strong> @EventItem.Date.ToString("MMMM dd, yyyy")</p>
+    <p><strong>Location:</strong> @EventItem.Location</p>
+</div>
